@@ -156,8 +156,8 @@
                     beta: (smoothingFactor * smoothedOrientation.beta) + ((1 - smoothingFactor) * beta),
                 };
 
-                az = smoothedOrientation.alpha.toFixed(1) + az_off.value
-                alt = smoothedOrientation.beta.toFixed(1) + alt_off.value
+                az = (smoothedOrientation.alpha + az_off.value).toFixed(1)
+                alt = (smoothedOrientation.beta + alt_off.value).toFixed(1)
 
                 alt_elm.innerText = `AZ : ${az}`;
                 az_elm.innerText = `ALT: ${alt}`;
