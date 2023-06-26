@@ -4,7 +4,7 @@
 <head>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             text-align: center;
             background-color: #f2f2f2;
         }
@@ -44,12 +44,17 @@
             width: 50px;
             height: 50px;
         }
+
+        input.larger2 {
+            width: auto;
+            height: 50px;
+            font-size: 40px;
+        }
     </style>
 </head>
 
 <body>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="jquery-3.7.0.min.js"></script>
     <script src="stuquery.min.js"></script>
     <script src="virtualsky.js" type="text/javascript"></script>
 
@@ -62,15 +67,7 @@
         </div>
     </div>
 
-    <!-- <div class="slider">
-        <label for="slider1">AZ :</label>
-        <input type="input" id="slider1" min="0" max="360">
-    </div>
 
-    <div class="slider">
-        <label for="slider2">ALT:</label>
-        <input type="input" id="slider2" min="-90" max="90">
-    </div> -->
 
     <div class="container" id="starmap" style="width: auto; height: 900px;"></div>
     <div class="container smallT">
@@ -78,23 +75,34 @@
         <input type="range" id="fov" min="10" max="60" value="30">
         <div style="display: flex; flex-direction: column;">
             <div class="padding" style="display: flex;">
-                <input type="checkbox" class="larger" id="az_check"checked>
+                <input type="checkbox" class="larger" id="az_check" checked>
                 <label for="az_check">AZ GRID</label>
             </div>
             <div class="padding" style="display: flex;">
-                <input type="checkbox" class="larger" id="eq_check" >
+                <input type="checkbox" class="larger" id="eq_check">
                 <label for="eq_check">EQ GRID</label>
             </div>
+
+            <div class="padding" style="display: flex;">
+                <input class="larger2" id='az_off' type="number" name="OFFSET AZ" value="0" step="0.1">
+                AZ OFFSET
+            </div>
+            <div class="padding" style="display: flex;">
+                <input class="larger2" id='alt_off' type="number" name="OFFSET ALT" value="0" step="0.1">
+                ALT OFFSET
+            </div>
+
         </div>
 
 
     </div>
 
     <script>
-        var planetarium;
-        const smoothingFactor = 0.95;
-        let smoothedOrientation = { alpha: 0, beta: 0, gamma: 0 };
+        var planetarium
+        const smoothingFactor = 0.95
+        var smoothedOrientation = { alpha: 0, beta: 0, gamma: 0 }
         var alt, az, radec, alt_elm, az_elm, radec_elm, fov_lbl
+        var az_off, alt_off
 
         alt_elm = document.getElementById('alt')
         az_elm = document.getElementById('az')
@@ -103,7 +111,10 @@
 
         const az_check = document.getElementById('az_check')
         const eq_check = document.getElementById('eq_check')
-        
+
+        az_off = document.getElementById('az_off')
+        alt_off = document.getElementById('alt_off')
+
 
         const fov_slider = document.getElementById('fov');
 
@@ -145,8 +156,8 @@
                     beta: (smoothingFactor * smoothedOrientation.beta) + ((1 - smoothingFactor) * beta),
                 };
 
-                az = smoothedOrientation.alpha.toFixed(1)
-                alt = smoothedOrientation.beta.toFixed(1)
+                az = smoothedOrientation.alpha.toFixed(1) + az_off.value
+                alt = smoothedOrientation.beta.toFixed(1) + alt_off.value
 
                 alt_elm.innerText = `AZ : ${az}`;
                 az_elm.innerText = `ALT: ${alt}`;
