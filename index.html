@@ -154,7 +154,7 @@
                 radec = planetarium.azel2radec(degToRad(az), degToRad(alt))
                 radec_elm.innerText = `RA: ${radec['ra'].toFixed(1)}\t DEC: ${radec['dec'].toFixed(1)}`
 
-                planetarium.panTo(c['ra'], c['dec'], 1)
+                planetarium.panTo(radec['ra'], radec['dec'], 1)
 
             });
 
