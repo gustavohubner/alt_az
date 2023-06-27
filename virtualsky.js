@@ -2370,15 +2370,15 @@ VirtualSky.prototype.drawImmediate = function(proj){
 	}
 
 	// Credit line
-	if(this.credit){
-		var credit = this.getPhrase('power');
-		var metric_credit = this.drawText(credit,this.padding,this.tall-this.padding);
-		// Float a transparent link on top of the credit text
-		if(d.find('.'+this.id+'_credit').length == 0) d.append('<div class="'+this.id+'_credit"><a href="http://slowe.github.io/VirtualSky/" target="_parent" title="Las Cumbres Observatory">'+this.getPhrase('powered')+'</a></div>');
-		d.find('.'+this.id+'_credit').css({padding:0,'z-index':20,display:'block',overflow:'hidden','background-color':'transparent'});
-		d.find('.'+this.id+'_credit a').css({display:'block',width:Math.ceil(metric_credit)+'px',height:fontsize+'px'});
-		this.positionCredit();
-	}
+	// if(this.credit){
+	// 	var credit = this.getPhrase('power');
+	// 	var metric_credit = this.drawText(credit,this.padding,this.tall-this.padding);
+	// 	// Float a transparent link on top of the credit text
+	// 	if(d.find('.'+this.id+'_credit').length == 0) d.append('<div class="'+this.id+'_credit"><a href="http://slowe.github.io/VirtualSky/" target="_parent" title="Las Cumbres Observatory">'+this.getPhrase('powered')+'</a></div>');
+	// 	d.find('.'+this.id+'_credit').css({padding:0,'z-index':20,display:'block',overflow:'hidden','background-color':'transparent'});
+	// 	d.find('.'+this.id+'_credit a').css({display:'block',width:Math.ceil(metric_credit)+'px',height:fontsize+'px'});
+	// 	this.positionCredit();
+	// }
 	if(this.showhelp){
 		var helpstr = '?';
 		if(d.find('.'+this.id+'_help').length == 0)

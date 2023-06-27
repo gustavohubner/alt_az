@@ -1,8 +1,7 @@
 var planetarium
-const smoothingFactor = 0.97
 var smoothedOrientation = { alpha: 0, beta: 0 }
 var alt, az, alt_s, az_s, radec, alt_elm, az_elm, dec_elm, ra_elm, fov_lbl
-var az_off, alt_off
+var az_off, alt_off, title
 
 // alert("ssss")
 
@@ -11,6 +10,7 @@ az_elm = document.getElementById('az')
 dec_elm = document.getElementById('dec_elm')
 ra_elm = document.getElementById('ra_elm')
 fov_lbl = document.getElementById('fovlbl')
+title = document.getElementById('title')
 
 const az_check = document.getElementById('az_check')
 const eq_check = document.getElementById('eq_check')
@@ -38,8 +38,9 @@ S(document).ready(function () {
         // 'constellationlabels': true,
         'gradient': true,
         'showgalaxy': true,
+        'showdate': false,
         'showstarlabels': true,
-        'ground': true,
+        // 'ground': true,
         'fov': 60,
         'fontsize': '12px',
         'live': true,
@@ -56,34 +57,33 @@ S(document).ready(function () {
         'atmos': true,
     });
 
+
+    const smoothingFactor = 0
     window.addEventListener('deviceorientation', event => {
         const { alpha, beta, _ } = event;
-        smoothedOrientation = {
-            alpha: (smoothingFactor * smoothedOrientation.alpha) + ((1 - smoothingFactor) * alpha),
-            beta: (smoothingFactor * smoothedOrientation.beta) + ((1 - smoothingFactor) * beta),
-        };
+        // smoothedOrientation = {
+        //     alpha: (smoothingFactor * smoothedOrientation.alpha) + ((1 - smoothingFactor) * alpha),
+        //     beta: (smoothingFactor * smoothedOrientation.beta) + ((1 - smoothingFactor) * beta),
+        // };
 
-
-        var erro = 0
-        az_s = ((smoothedOrientation.alpha + erro) % 360) + az_off.valueAsNumber
-        alt_s = (smoothedOrientation.beta + alt_off.valueAsNumber)
+        // az_s = 360 - ((smoothedOrientation.alpha + erro) % 360) + az_off.valueAsNumber
+        // alt_s = (smoothedOrientation.beta + alt_off.valueAsNumber)
 
         // az = smoothedOrientation.alpha
         // alt = smoothedOrientation.beta
 
-        az = 360 -((alpha + erro) % 360 + az_off.valueAsNumber)
+        az = 360 - (alpha + az_off.valueAsNumber)
         alt = (beta + alt_off.valueAsNumber)
 
-        // az = ((alpha) % 360 + az_off.valueAsNumber)
-        // alt = (beta + alt_off.valueAsNumber)
+        az_elm.innerText = `${az.toFixed(1)}`;
+        alt_elm.innerText = `${alt.toFixed(1)}`;
 
-
-        az_elm.innerText = `${az_s.toFixed(1)}`;
-        alt_elm.innerText = `${alt_s.toFixed(1)}`;
-
+        ra_text = Math.floor(radec['ra'] / 15) + 'H' + (((radec['ra'] / 15) - Math.floor(radec['ra'] / 15)) * 60).toFixed(0) + "M"
+        dec_text = Math.floor(radec['dec']) + 'º'+Math.floor((radec['dec']- Math.floor(radec['dec']))*60)+"\'"
         radec = planetarium.azel2radec(degToRad(az), degToRad(alt))
-        ra_elm.innerText = `${radec['ra'].toFixed(1)}`
-        dec_elm.innerText = `${radec['dec'].toFixed(1)}`
+        // ra_elm.innerText = `${(radec['ra']).toFixed(1)}H`
+        ra_elm.innerText = ra_text
+        dec_elm.innerText = dec_text
 
         planetarium.panTo(radec['ra'], radec['dec'], 1)
     });
@@ -99,7 +99,7 @@ S(document).ready(function () {
     alt_elm.innerText = `${alt}`;
 
     radec = planetarium.azel2radec(degToRad(az), degToRad(alt))
-    ra_elm.innerText = `${radec['ra'].toFixed(1)}º`
+    ra_elm.innerText = `${radec['ra'].toFixed(1)}`
     dec_elm.innerText = `${radec['dec'].toFixed(1)}º`
     planetarium.panTo(radec['ra'], radec['dec'], 500)
 
@@ -122,6 +122,10 @@ S(document).ready(function () {
     })
     alt_off.addEventListener('input', () => {
         alt_off_lbl.innerText = `ALT OFFSET ${alt_off.value}º`
+    })
+
+    title.addEventListener('click', () => {
+        document.getElementsByTagName('body')[0].classList.toggle('darkmode');
     })
 
     document.getElementById('starmap_inner').style.rotate = "180deg"

@@ -1,7 +1,7 @@
 .padding {
   padding-bottom: 10px;
   padding-left: 10px;
-  padding-right: 10px; 
+  padding-right: 10px;
 }
 
 :root {
@@ -47,74 +47,44 @@
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
   --bs-body-bg-rgb: 255, 255, 255;
-  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --bs-gradient: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0)
+  );
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
+  --bs-check-bg: var(--bs-primary);
+  --bs-check-brd: var(--bs-primary);
 }
 
-/* DARK */
-/* :root {
-  --bs-blue: #0d6efd;
-  --bs-indigo: #6610f2;
-  --bs-purple: #6f42c1;
-  --bs-pink: #d63384;
-  --bs-red: #dc3545;
-  --bs-orange: #fd7e14;
-  --bs-yellow: #ffc107;
-  --bs-green: #198754;
-  --bs-teal: #20c997;
-  --bs-cyan: #0dcaf0;
+.darkmode {
   --bs-white: #a50000;
-  --bs-gray: #868e96;
-  --bs-gray-dark: #343a40;
-  --bs-gray-100: #f8f9fa;
+
+  --bs-primary: #ffffff;
   --bs-gray-200: #000000;
-  --bs-gray-300: #dee2e6;
-  --bs-gray-400: #ced4da;
-  --bs-gray-500: #adb5bd;
-  --bs-gray-600: #868e96;
-  --bs-gray-700: #495057;
-  --bs-gray-800: #343a40;
-  --bs-gray-900: #212529;
-  --bs-primary: #464e91;
-  --bs-secondary: #6c78b8;
-  --bs-success: #198754;
-  --bs-info: #0dcaf0;
-  --bs-warning: #ffc107;
-  --bs-danger: #dc3545;
-  --bs-light: #f8f9fa;
-  --bs-dark: #212529;
-  --bs-primary-rgb: 238, 9, 121;
-  --bs-secondary-rgb: 255, 106, 0;
-  --bs-success-rgb: 25, 135, 84;
-  --bs-info-rgb: 13, 202, 240;
-  --bs-warning-rgb: 255, 193, 7;
-  --bs-danger-rgb: 220, 53, 69;
-  --bs-light-rgb: 248, 249, 250;
-  --bs-dark-rgb: 33, 37, 41;
-  --bs-white-rgb: 255, 255, 255;
-  --bs-black-rgb: 0, 0, 0;
-  --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg-rgb: 255, 255, 255;
-  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: var(--bs-font-sans-serif);
-  --bs-body-font-size: 1rem;
-  --bs-body-font-weight: 400;
-  --bs-body-line-height: 1.5;
+  --bs-gray-500: #b40000;
+  --bs-gray-600: #000000;
   --bs-body-color: #000000;
-  --bs-body-bg: #fff;
-} */
+  --bs-body-bg: #000000;
+  --bs-check-bg: #000000;
+  --bs-check-brd: var(--bs-white);
+}
 
 body {
   background: var(--bs-gray-200);
+  transition: 0.2s linear;
+  /* transition-property: all; */
+  
 }
 
 .div-border {
@@ -123,6 +93,8 @@ body {
   padding: 10px 10px 5px 10px;
   border-radius: 5px;
   box-shadow: 0px 2px 6px var(--bs-gray-500);
+  
+  transition: 0.5s linear;
 }
 
 .container {
@@ -130,30 +102,43 @@ body {
 }
 
 .form-check-input:checked {
-  background-color: var(--bs-blue);
-  border-color: #0d2f60;
+  background-color: var(--bs-check-bg);
+  border-color: var(--bs-check-bg);
+}
+
+.form-check-input {
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-check-brd);
+  box-shadow: 0 0 0 0rem rgba(13, 110, 253, 0);
 }
 
 .form-check-input:focus {
-  border-color: #589cff;
-  outline: 0;
-  box-shadow: 0 0 0 .25rem rgba(13,110,253,0.44);
+  border-color: var(--bs-primary);
+  /* border-color: rgba(13, 110, 253, 0); */
+  /* outline: 0; */
+  box-shadow: 0 0 0 0rem rgba(13, 110, 253, 0);
 }
 
 .form-range::-moz-range-thumb {
   background-color: var(--bs-primary);
 }
 
--webkit-slider-thumb:active {
+.form-range::-moz-range-track {
+  background-color: var(--bs-gray-600);
+}
+
+/* -webkit-slider-thumb:active {
   background-color: red;
 }
 
--webkit-slider-thumb, .custom-range:focus::-webkit-slider-thumb, .custom-range:focus::-moz-range-thumb, .custom-range:focus::-ms-thumb {
+-webkit-slider-thumb,
+.custom-range:focus::-webkit-slider-thumb,
+.custom-range:focus::-moz-range-thumb,
+.custom-range:focus::-ms-thumb {
   box-shadow: red;
-}
+} */
 
 body {
   font-family: monospace;
   font-weight: bold;
 }
-
