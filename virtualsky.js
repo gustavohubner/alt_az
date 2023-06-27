@@ -2359,6 +2359,7 @@ VirtualSky.prototype.drawImmediate = function(proj){
 	// Time line
 	if(this.showdate){
 		clockstring = this.clock.toLocaleDateString(this.langcode,{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })+' '+this.clock.toLocaleTimeString(this.langcode);
+		
 		metric_clock = this.drawText(clockstring,this.padding,this.padding+fontsize);
 	}
 
@@ -2785,8 +2786,16 @@ VirtualSky.prototype.drawPlanet = function(x,y,d,colour,label){
 	return this;
 };
 VirtualSky.prototype.drawText = function(txt,x,y){
-	this.ctx.beginPath();
-	this.ctx.fillText(txt,x,y);
+	this.ctx.beginPath();				
+	this.ctx.save()
+
+	this.ctx.width
+	var len = this.ctx.measureText(txt).width;
+	this.ctx.rotate(-Math.PI);;
+	this.ctx.fillText(txt,x-this.c.width,y-this.c.height);
+	// console.log(this)
+	this.ctx.restore()
+	// this.ctx.fillText(txt,x,y);
 	return this.ctx.measureText(txt).width;
 };
 // Helper function. You'll need to wrap it with a this.ctx.beginPath() and a this.ctx.fill();
@@ -2798,7 +2807,12 @@ VirtualSky.prototype.drawLabel = function(x,y,d,colour,label){
 	var xoff = d;
 	if((this.polartype) && c.measureText) xoff = -c.measureText(label).width-3;
 	if((this.polartype) && x < this.wide/2) xoff = d;
-	c.fillText(label,x+xoff,y-(d+2));
+	
+	// c.fillText(label,x-xoff,y-(d+2));
+	c.save()
+	c.rotate(-Math.PI);
+	c.fillText(label,-x+xoff,-y+(d-2));
+	c.restore()
 	return this;
 };
 VirtualSky.prototype.drawConstellationLines = function(colour){
@@ -2860,7 +2874,12 @@ VirtualSky.prototype.drawConstellationLines = function(colour){
 			if(this.isVisible(pos.el)){
 				var label = this.getPhrase('constellations',this.lines[c][0]);
 				var xoff = (x.measureText) ? -x.measureText(label).width/2 : 0;
-				x.fillText(label,pos.x+xoff,pos.y-fontsize/2);
+				// x.fillText(label,pos.x+xoff,pos.y-fontsize/2);
+
+				x.save()
+				x.rotate(-Math.PI);;
+				x.fillText(label,-pos.x+xoff,-pos.y+fontsize/2);
+				x.restore()
 				x.fill();
 			}
 		}
@@ -3176,7 +3195,12 @@ VirtualSky.prototype.drawCardinalPoints = function(){
 			y = isFinite(pos.y) ? pos.y - pt/2 : 0;
 			if(x < 0 || x > this.wide-pt) x = -r;
 		}
-		if(x > 0) c.fillText(d[i],x,y);
+		if(x > 0){
+			c.save()
+			c.rotate(-Math.PI);
+			c.fillText(d[i],-x,-y);
+			c.restore()
+		}
 	}
 	c.fill();
 

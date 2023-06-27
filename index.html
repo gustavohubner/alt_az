@@ -2,203 +2,107 @@
 <html>
 
 <head>
-    <style>
-        body {
-            font-family: 'Courier New', Courier, monospace;
-            text-align: center;
-            background-color: #f2f2f2;
-        }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Alt-Az</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900&amp;display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/style.css">
 
-        .container {
-            margin-left: 20px;
-            margin-right: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .title {
-            font-size: 90px;
-            font-weight: bold;
-            margin-bottom: 50px;
-            margin-top: 50px;
-        }
-
-        .coordinates {
-            font-size: 80px;
-            padding: 20px 40px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .smallT {
-            font-size: 50px;
-        }
-
-        .padding {
-            padding-top: 20px;
-        }
-
-        input.larger {
-            width: 50px;
-            height: 50px;
-        }
-
-        input.larger2 {
-            width: auto;
-            height: 50px;
-            font-size: 40px;
-        }
-    </style>
-</head>
-
-<body>
     <script src="jquery-3.7.0.min.js"></script>
     <script src="stuquery.min.js"></script>
     <script src="virtualsky.js" type="text/javascript"></script>
+</head>
+
+<body style="width: 100vw;">
 
     <div class="container">
-        <div class="title">ALT-AZ</div>
-        <div>
-            <div class="coordinates" id="alt">ALT: 0.0</div>
-            <div class="coordinates" id="az">AZ : 0.0</div>
-            <div class="coordinates smallT" id="radec_elm">RA: 0.0 DEC:0.0</div>
+        <div class="row padding">
+            <div class="col div-border">
+                <h1 class="display-3 text-center">ALT-AZ</h1>
+            </div>
+        </div>
+        <div class="row padding">
+            <div class="col my-auto div-border">
+                <div class="row">
+                    <div class="col-3"><span class="fs-8">ALT</span></div>
+                    <div class="col"><span class="fs-1" id="alt">111º</span></div>
+                </div>
+            </div>
+            <div class="col div-border">
+                <div class="row">
+                    <div class="col-3" v><span class="fs-8">AZ</span></div>
+                    <div class="col"><span class="fs-1" id="az">111º</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="row padding">
+            <div class="col div-border">
+                <div class="row">
+                    <div class="col-auto mx-auto">
+                        <div class="row">
+                            <div class="col-auto mx-auto">
+                                <div class="row">
+                                    <div class="col-auto"><span>RA</span></div>
+                                    <div class="col-auto" style="margin-right: 50px;"><span id="ra_elm">110º</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto mx-auto">
+                                <div class="row">
+                                    <div class="col-auto"><span>DEC</span></div>
+                                    <div class="col-3"><span id="dec_elm">111º</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <div id="starmap" style="height: 300px; "></div>
 
-
-    <div id="starmap" style="height: 900px;"></div>
-    <div class="container smallT">
-        <label class="padding" for="slider3" id="fovlbl">FOV: 30º</label>
-        <input type="range" id="fov" min="10" max="60" value="30">
-        <div style="display: flex; flex-direction: column;">
-            <div class="padding" style="display: flex;">
-                <input type="checkbox" class="larger" id="az_check" checked>
-                <label for="az_check">AZ GRID</label>
+    <div class="container">
+        <div class="row padding">
+            <div class="col div-border">
+                <div class="row">
+                    <div class="col-auto"><label id="fovlbl" for="fov">FOV 30º</label></div>
+                    <div class="col"><input class="form-range" type="range" id="fov" min="5" max="90" value=30
+                            step="0.1"></div>
+                </div>
             </div>
-            <div class="padding" style="display: flex;">
-                <input type="checkbox" class="larger" id="eq_check">
-                <label for="eq_check">EQ GRID</label>
-            </div>
-
-            <div class="padding" style="display: flex;">
-                <input class="larger2" id='az_off' type="number" name="OFFSET AZ" value="0" step="0.1">
-                AZ OFFSET
-            </div>
-            <div class="padding" style="display: flex;">
-                <input class="larger2" id='alt_off' type="number" name="OFFSET ALT" value="0" step="0.1">
-                ALT OFFSET
-            </div>
-
         </div>
-
-
+        <div class="row padding">
+            <div class="col div-border">
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="az_check" checked>
+                    <label class="form-check-label" for="az_check">AZ GRID</label>
+                </div>
+            </div>
+            <div class="col div-border">
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="eq_check">
+                    <label class="form-check-label" for="eq_check">EQ GRID</label>
+                </div>
+            </div>
+        </div>
+        <div class="row padding">
+            <div class="col div-border">
+                <div class="row">
+                    <div><label class="form-label" id="alt_off_lbl">ALT OFFSET 0º</label></div>
+                    <div><input class="form-range" id='alt_off' type="range" value="0" min="-90" max="+90" step="0.01">
+                    </div>
+                    <div><label for="az_off" class="form-label" id="az_off_lbl">AZ OFFSET 0º</label></div>
+                    <div><input class="form-range" id='az_off' type="range" value="0" min="-180" max="+180" step="0.01">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <script>
-        var planetarium
-        const smoothingFactor = 0.95
-        var smoothedOrientation = { alpha: 0, beta: 0, gamma: 0 }
-        var alt, az, radec, alt_elm, az_elm, radec_elm, fov_lbl
-        var az_off, alt_off
-
-        alt_elm = document.getElementById('alt')
-        az_elm = document.getElementById('az')
-        radec_elm = document.getElementById('radec_elm')
-        fov_lbl = document.getElementById('fovlbl')
-
-        const az_check = document.getElementById('az_check')
-        const eq_check = document.getElementById('eq_check')
-
-        az_off = document.getElementById('az_off')
-        alt_off = document.getElementById('alt_off')
-
-
-        const fov_slider = document.getElementById('fov');
-
-        function degToRad(degrees) {
-            return (degrees % 360) * (Math.PI / 180);
-        }
-
-        S(document).ready(function () {
-            planetarium = S.virtualsky({
-                'id': 'starmap',
-                'projection': 'gnomic',
-                'latitude': -31.75,
-                'longitude': -52.33,
-                'constellations': true,
-                // 'constellationlabels': true,
-                'showgalaxy': true,
-                'showstarlabels': true,
-                'ground': false,
-                'fov': 30,
-                'fontsize': '25px',
-                'live': true,
-                'keyboard': true,
-                'mouse': true,
-                'magnitude': 10,
-                'scalestars': 4,
-                'showdate': true,
-                'showposition': true,
-                'gridlines_az': true,
-                // 'gridlines_eq': true,
-                'gridlineswidth': 4,
-                'gridstep': 10,
-                'atmos': true,
-            });
-
-            window.addEventListener('deviceorientation', event => {
-                const { alpha, beta, gamma } = event;
-                smoothedOrientation = {
-                    alpha: (smoothingFactor * smoothedOrientation.alpha) + ((1 - smoothingFactor) * alpha),
-                    beta: (smoothingFactor * smoothedOrientation.beta) + ((1 - smoothingFactor) * beta),
-                };
-
-                // az = (smoothedOrientation.alpha + az_off.value).toFixed(1)
-                // alt = (smoothedOrientation.beta + alt_off.value).toFixed(1)
-
-                az = smoothedOrientation.alpha.toFixed(1)
-                alt = smoothedOrientation.beta.toFixed(1)
-
-                alt_elm.innerText = `AZ : ${az}`;
-                az_elm.innerText = `ALT: ${alt}`;
-
-                radec = planetarium.azel2radec(degToRad(az), degToRad(alt))
-                radec_elm.innerText = `RA: ${radec['ra'].toFixed(1)}\t DEC: ${radec['dec'].toFixed(1)}`
-
-                planetarium.panTo(radec['ra'], radec['dec'], 1)
-
-            });
-
-            az = 323
-            alt = 23
-            az_elm.innerText = `AZ : ${az}º`;
-            alt_elm.innerText = `ALT: ${alt}º`;
-
-            radec = planetarium.azel2radec(degToRad(az), degToRad(alt))
-            radec_elm.innerText = `RA : ${radec['ra'].toFixed(1)}º\t DEC: ${radec['dec'].toFixed(1)}º`
-            planetarium.panTo(radec['ra'], radec['dec'], 500)
-
-
-            fov_slider.addEventListener('input', () => {
-                fov_lbl.innerText = `FOV: ${fov_slider.value}º`;
-                planetarium.fov = fov_slider.value
-            });
-
-            eq_check.addEventListener('input', () => {
-                planetarium.grid.eq = $(eq_check).is(":checked")
-            })
-
-            az_check.addEventListener('input', () => {
-                planetarium.grid.az = $(az_check).is(":checked")
-            })
-        });
-
-
-
-    </script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>
