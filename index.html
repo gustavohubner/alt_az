@@ -43,17 +43,17 @@
                 <div class="row">
                     <div class="col mx-auto">
                         <div class="row">
-                            <div class="col-6 mx-auto">
+                            <div class="col">
                                 <div class="row">
-                                    <div class="col-auto" style="margin-left: 50px;"><span>RA</span></div>
-                                    <div class="col-auto" ><span id="ra_elm">110º</span>
+                                    <div class="col-auto" style="margin-left: 30px;"><span>RA</span></div>
+                                    <div class="col-1" ><span id="ra_elm">110º</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 mx-auto">
+                            <div class="col">
                                 <div class="row">
                                     <div class="col-auto"><span>DEC</span></div>
-                                    <div class="col-3"><span id="dec_elm">111º</span></div>
+                                    <div class="col"><span id="dec_elm">111º</span></div>
                                 </div>
                             </div>
                         </div>
@@ -69,9 +69,12 @@
         <div class="row padding">
             <div class="col div-border">
                 <div class="row">
-                    <div class="col-4"><label id="fovlbl" for="fov">FOV 30º</label></div>
-                    <div class="col"><input class="form-range" type="range" id="fov" min="5" max="90" value=30
-                            step="0.1"></div>
+                    <!-- <div class=""><label id="fovlbl" for="fov">FOV 30º</label></div>
+                    <div class="col "><input class="form-range" type="range" id="fov" min="5" max="90" value=30
+                            step="0.1"></div> -->
+                    <div><label class="form-label" id="fovlbl">FOV 30º</label></div>
+                    <div><input class="form-range" id='fov' type="range" value="30" min="5" max="90" step="0.01">
+                    </div>
                 </div>
             </div>
         </div>

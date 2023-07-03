@@ -78,9 +78,9 @@ S(document).ready(function () {
         az_elm.innerText = `${az.toFixed(1)}`;
         alt_elm.innerText = `${alt.toFixed(1)}`;
 
+        radec = planetarium.azel2radec(degToRad(az), degToRad(alt))
         ra_text = Math.floor(radec['ra'] / 15) + 'H' + (((radec['ra'] / 15) - Math.floor(radec['ra'] / 15)) * 60).toFixed(0) + "M"
         dec_text = Math.floor(radec['dec']) + 'º'+Math.floor((radec['dec']- Math.floor(radec['dec']))*60)+"\'"
-        radec = planetarium.azel2radec(degToRad(az), degToRad(alt))
         // ra_elm.innerText = `${(radec['ra']).toFixed(1)}H`
         ra_elm.innerText = ra_text
         dec_elm.innerText = dec_text
@@ -99,8 +99,11 @@ S(document).ready(function () {
     alt_elm.innerText = `${alt}`;
 
     radec = planetarium.azel2radec(degToRad(az), degToRad(alt))
-    ra_elm.innerText = `${radec['ra'].toFixed(1)}`
-    dec_elm.innerText = `${radec['dec'].toFixed(1)}º`
+    ra_text = Math.floor(radec['ra'] / 15) + 'H' + (((radec['ra'] / 15) - Math.floor(radec['ra'] / 15)) * 60).toFixed(0) + "M"
+    dec_text = Math.floor(radec['dec']) + 'º'+Math.floor((radec['dec']- Math.floor(radec['dec']))*60)+"\'"
+    // ra_elm.innerText = `${(radec['ra']).toFixed(1)}H`
+    ra_elm.innerText = ra_text
+    dec_elm.innerText = dec_text
     planetarium.panTo(radec['ra'], radec['dec'], 500)
 
 
@@ -126,8 +129,20 @@ S(document).ready(function () {
 
     title.addEventListener('click', () => {
         document.getElementsByTagName('body')[0].classList.toggle('darkmode');
+        toggleFullScreen()
     })
 
+    // title.addEventListener('lon', () => {
+
     document.getElementById('starmap_inner').style.rotate = "180deg"
+
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+      
 
 });
